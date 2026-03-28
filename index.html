@@ -9,10 +9,14 @@
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ["Segoe UI", "ui-sans-serif", "system-ui", "sans-serif"]
+          },
           colors: {
             brand: {
-              50: "#eef6ff",
-              100: "#d9ebff",
+              50: "#edf5ff",
+              100: "#d8e9ff",
+              200: "#b7d6ff",
               500: "#2563eb",
               600: "#1d4ed8",
               700: "#1e40af",
@@ -20,16 +24,25 @@
             }
           },
           boxShadow: {
-            soft: "0 20px 45px -20px rgba(15, 23, 42, 0.25)"
+            soft: "0 24px 50px -28px rgba(15, 23, 42, 0.35)",
+            panel: "0 18px 40px -24px rgba(15, 23, 42, 0.28)"
           },
           keyframes: {
             fadeUp: {
               "0%": { opacity: "0", transform: "translateY(14px)" },
               "100%": { opacity: "1", transform: "translateY(0)" }
+            },
+            flagWave: {
+              "0%": { transform: "translateX(0) translateY(0) scaleX(1.01) skewY(0deg)" },
+              "25%": { transform: "translateX(-0.4%) translateY(-0.4%) scaleX(1.015) skewY(-0.5deg)" },
+              "50%": { transform: "translateX(0.35%) translateY(0.3%) scaleX(1.02) skewY(0.45deg)" },
+              "75%": { transform: "translateX(-0.25%) translateY(-0.25%) scaleX(1.015) skewY(-0.35deg)" },
+              "100%": { transform: "translateX(0) translateY(0) scaleX(1.01) skewY(0deg)" }
             }
           },
           animation: {
-            "fade-up": "fadeUp 0.45s ease-out"
+            "fade-up": "fadeUp 0.45s ease-out",
+            "flag-wave": "flagWave 7s ease-in-out infinite"
           }
         }
       }
@@ -42,13 +55,28 @@
 
     body {
       background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 28%),
-        linear-gradient(180deg, #f8fbff 0%, #eff6ff 45%, #f8fafc 100%);
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(148, 163, 184, 0.14), transparent 20%),
+        linear-gradient(180deg, #f8fbff 0%, #eff6ff 38%, #f8fafc 100%);
     }
 
     .glass {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px);
+    }
+
+    .selection-ring {
+      box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.12);
+    }
+
+    .flag-tilt {
+      transform-style: preserve-3d;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+      will-change: transform;
+    }
+
+    .flag-depth {
+      transform: translateZ(18px);
     }
 
     @media print {
@@ -67,101 +95,175 @@
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-800">
-  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+<body class="min-h-screen font-sans text-slate-800 antialiased">
+  <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
     <header class="no-print">
       <div class="glass overflow-hidden rounded-[2rem] border border-white/70 shadow-soft">
-        <div class="grid gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-12 lg:py-14">
+        <div class="grid gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[1.18fr_0.82fr] lg:items-center lg:gap-10 lg:px-12 lg:py-14">
           <div class="animate-fade-up">
-            <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-medium text-brand-700 shadow-sm">
+            <div class="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700 shadow-sm sm:text-sm">
               <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-              Trusted guidance for common SA government document journeys
+              South African service preparation made simpler
             </div>
-            <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-              SA Gov Assist
-              <span class="block text-brand-600">Document Checklist Generator</span>
-            </h1>
-            <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-              Choose a service and instantly get a practical checklist of required documents,
-              optional supporting items, process steps, and common mistakes to avoid.
+            <div class="mt-6 flex items-start gap-4">
+              <div class="hidden rounded-3xl bg-brand-600 p-4 text-white shadow-lg shadow-blue-200 sm:block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75A2.25 2.25 0 0 1 6 4.5h12a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 18 19.5H6a2.25 2.25 0 0 1-2.25-2.25V6.75Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9M7.5 12h9M7.5 15.75h5.25" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                  SA Gov Assist
+                </h1>
+                <p class="mt-2 text-xl font-semibold text-brand-600 sm:text-2xl">
+                  Document Checklist Generator
+                </p>
+              </div>
+            </div>
+            <p class="mt-6 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+              Choose a service and instantly generate a practical document checklist with supporting steps,
+              optional items, and common pitfalls so you can arrive prepared.
             </p>
 
+            <div id="flagCard" class="flag-tilt mt-8 overflow-hidden rounded-[1.9rem] border border-slate-200 bg-white shadow-soft">
+              <div class="relative h-44 w-full overflow-hidden bg-slate-200 sm:h-56 lg:h-64">
+                <div class="absolute inset-0 origin-left animate-flag-wave">
+                  <img
+                    src="flag.jpg"
+                    alt="South African flag"
+                    class="h-full w-full object-cover"
+                  />
+                  <div class="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.18),transparent_30%,transparent_60%,rgba(0,0,0,0.10))]"></div>
+                  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_28%)]"></div>
+                </div>
+              </div>
+              <div class="flag-depth flex flex-col gap-2 border-t border-slate-200 bg-slate-950 px-5 py-4 text-white sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                <div class="flag-depth">
+                  <p class="text-base font-semibold sm:text-lg">South African Government Support</p>
+                  <p class="mt-1 text-sm leading-6 text-slate-300">A locally focused checklist tool for real South African document journeys.</p>
+                </div>
+                <div class="flag-depth rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-blue-100">
+                  SA-ready
+                </div>
+              </div>
+            </div>
+
             <div class="mt-8 grid gap-3 sm:grid-cols-3">
-              <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <p class="text-sm font-semibold text-slate-900">Mobile-first</p>
-                <p class="mt-1 text-sm text-slate-600">Designed to work smoothly on phones and desktops.</p>
+              <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="rounded-2xl bg-blue-50 p-2 text-brand-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 15.75v-7.5A2.25 2.25 0 0 1 6 6h12a2.25 2.25 0 0 1 2.25 2.25v7.5A2.25 2.25 0 0 1 18 18H6a2.25 2.25 0 0 1-2.25-2.25Z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5" />
+                    </svg>
+                  </div>
+                  <p class="text-sm font-semibold text-slate-900">Mobile-first</p>
+                </div>
+                <p class="mt-3 text-sm leading-6 text-slate-600">Comfortable on phones with compact controls and readable cards.</p>
               </div>
-              <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <p class="text-sm font-semibold text-slate-900">Clear steps</p>
-                <p class="mt-1 text-sm text-slate-600">Guidance broken down into simple next actions.</p>
+              <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="rounded-2xl bg-emerald-50 p-2 text-emerald-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                  </div>
+                  <p class="text-sm font-semibold text-slate-900">Clear guidance</p>
+                </div>
+                <p class="mt-3 text-sm leading-6 text-slate-600">See exactly what to bring, what helps, and what to avoid.</p>
               </div>
-              <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-                <p class="text-sm font-semibold text-slate-900">Print-ready</p>
-                <p class="mt-1 text-sm text-slate-600">Download or save your checklist as a PDF via print.</p>
+              <div class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div class="flex items-center gap-3">
+                  <div class="rounded-2xl bg-slate-100 p-2 text-slate-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h7.5L18.75 8.25v12A1.5 1.5 0 0 1 17.25 21.75H6.75a1.5 1.5 0 0 1-1.5-1.5v-15a1.5 1.5 0 0 1 1.5-1.5Z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 3.75v4.5h4.5" />
+                    </svg>
+                  </div>
+                  <p class="text-sm font-semibold text-slate-900">Print-ready</p>
+                </div>
+                <p class="mt-3 text-sm leading-6 text-slate-600">Use the download button to print or save the checklist as a PDF.</p>
               </div>
             </div>
           </div>
 
-          <div class="animate-fade-up rounded-[1.75rem] border border-slate-200 bg-slate-900 p-6 text-white shadow-soft">
-            <p class="text-sm uppercase tracking-[0.25em] text-blue-200">How It Works</p>
-            <div class="mt-5 space-y-4">
-              <div class="flex gap-3">
-                <div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-100">1</div>
+          <div class="animate-fade-up rounded-[1.9rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-soft sm:p-7">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-200 sm:text-sm">How It Works</p>
+              <div class="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-blue-100">2-step flow</div>
+            </div>
+
+            <div class="mt-6 space-y-5">
+              <div class="flex gap-4">
+                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-500/20 font-bold text-blue-100">1</div>
                 <div>
                   <p class="font-semibold">Select a service</p>
-                  <p class="text-sm text-slate-300">Pick the government service you need help with.</p>
+                  <p class="mt-1 text-sm leading-6 text-slate-300">Select the government service you need help with.</p>
                 </div>
               </div>
-              <div class="flex gap-3">
-                <div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-100">2</div>
+              <div class="flex gap-4">
+                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-500/20 font-bold text-blue-100">2</div>
                 <div>
                   <p class="font-semibold">Review your checklist</p>
-                  <p class="text-sm text-slate-300">See required documents, optional items, and process tips.</p>
+                  <p class="mt-1 text-sm leading-6 text-slate-300">Check required documents, optional items, and process steps.</p>
                 </div>
               </div>
-              <div class="flex gap-3">
-                <div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-100">3</div>
+              <div class="flex gap-4">
+                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-500/20 font-bold text-blue-100">3</div>
                 <div>
-                  <p class="font-semibold">Print or save</p>
-                  <p class="text-sm text-slate-300">Use the download button to print or save as PDF.</p>
+                  <p class="font-semibold">Save or print</p>
+                  <p class="mt-1 text-sm leading-6 text-slate-300">Download the result as a printable page when you are ready.</p>
                 </div>
               </div>
+            </div>
+            <div class="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4">
+              <p class="text-sm font-semibold text-white">Helpful tip</p>
+              <p class="mt-2 text-sm leading-6 text-slate-300">
+                Your last selected service is remembered on this device so you can come back and continue quickly.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    <main class="mt-8 grid gap-6 lg:grid-cols-[340px_1fr]">
+    <main class="mt-6 grid gap-6 lg:mt-8 lg:grid-cols-[360px_1fr] lg:gap-8">
       <aside class="no-print space-y-6">
-        <section class="print-card rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-slate-900">Progress</h2>
+        <section class="print-card rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-panel sm:p-6">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-950">Progress</h2>
+              <p class="mt-1 text-sm text-slate-500">Move from selection to ready-to-use checklist.</p>
+            </div>
             <span id="progressLabel" class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-brand-700">Step 1 of 2</span>
           </div>
 
-          <div class="mt-5 space-y-4">
-            <div class="flex items-start gap-3">
-              <div id="step1Dot" class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">1</div>
-              <div>
-                <p class="font-medium text-slate-900">Choose service</p>
-                <p class="text-sm text-slate-500">Select the government service you need.</p>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-start gap-4">
+              <div id="step1Dot" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600 font-bold text-white shadow-md shadow-blue-200">1</div>
+              <div class="pt-1">
+                <p class="font-semibold text-slate-900">Choose service</p>
+                <p class="mt-1 text-sm leading-6 text-slate-500">Pick one of the supported South African government services.</p>
               </div>
             </div>
-            <div class="ml-4 h-8 w-px bg-slate-200"></div>
-            <div class="flex items-start gap-3">
-              <div id="step2Dot" class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 text-sm font-bold text-slate-500">2</div>
-              <div>
-                <p class="font-medium text-slate-900">View results</p>
-                <p class="text-sm text-slate-500">Use your checklist and download if needed.</p>
+            <div class="ml-5 h-8 w-px bg-slate-200"></div>
+            <div class="flex items-start gap-4">
+              <div id="step2Dot" class="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-200 font-bold text-slate-500">2</div>
+              <div class="pt-1">
+                <p class="font-semibold text-slate-900">View results</p>
+                <p class="mt-1 text-sm leading-6 text-slate-500">Use the checklist and print it when you are ready.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="print-card rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
-          <div class="flex items-center justify-between">
-            <h2 class="text-lg font-semibold text-slate-900">Select a Service</h2>
+        <section class="print-card rounded-[1.8rem] border border-slate-200 bg-white p-5 shadow-panel sm:p-6">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-semibold text-slate-950">Select a Service</h2>
+              <p class="mt-1 text-sm text-slate-500">Choose from popular DHA, SARS, and UIF tasks.</p>
+            </div>
             <button
               id="resetButton"
               type="button"
@@ -171,92 +273,140 @@
             </button>
           </div>
 
-          <label for="serviceSelect" class="mt-5 block text-sm font-medium text-slate-700">Government service</label>
-          <select
-            id="serviceSelect"
-            class="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
-          >
-            <option value="">Choose an option</option>
-          </select>
+          <label for="serviceSelect" class="mt-6 block text-sm font-semibold text-slate-700">Government service</label>
+          <div class="relative mt-2">
+            <select
+              id="serviceSelect"
+              class="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-12 text-sm text-slate-800 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            >
+              <option value="">Choose an option</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-slate-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </div>
+          </div>
 
-          <div id="serviceCards" class="mt-5 grid gap-3"></div>
+          <div id="serviceCards" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1"></div>
 
           <button
             id="generateButton"
             type="button"
-            class="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+            class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-600 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
           >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6h16.5M3.75 12h16.5M3.75 18h10.5" />
+            </svg>
             Generate Checklist
           </button>
         </section>
       </aside>
 
       <section class="space-y-6">
-        <div id="emptyState" class="print-card rounded-[1.75rem] border border-dashed border-slate-300 bg-white/80 p-8 text-center shadow-soft">
-          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-3xl">📄</div>
-          <h2 class="mt-4 text-2xl font-semibold text-slate-900">Generate your checklist</h2>
-          <p class="mx-auto mt-3 max-w-2xl text-slate-600">
+        <div id="emptyState" class="print-card rounded-[1.8rem] border border-dashed border-slate-300 bg-white/90 p-8 text-center shadow-panel sm:p-10">
+          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-blue-50 text-brand-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h7.5L18.75 8.25v12A1.5 1.5 0 0 1 17.25 21.75H6.75a1.5 1.5 0 0 1-1.5-1.5v-15a1.5 1.5 0 0 1 1.5-1.5Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 3.75v4.5h4.5" />
+            </svg>
+          </div>
+          <h2 class="mt-5 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">Generate your checklist</h2>
+          <p class="mx-auto mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
             Pick a service from the left to get a tailored document checklist with supporting steps,
             optional items, and common issues to watch out for.
           </p>
         </div>
 
         <div id="resultsPanel" class="hidden animate-fade-up space-y-6">
-          <section class="print-card overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-soft">
-            <div class="border-b border-slate-200 bg-gradient-to-r from-slate-900 via-brand-900 to-brand-700 px-6 py-6 text-white sm:px-8">
-              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <div id="serviceBadge" class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-blue-100"></div>
-                  <h2 id="serviceTitle" class="mt-3 text-2xl font-semibold"></h2>
-                  <p id="serviceDescription" class="mt-2 max-w-3xl text-sm leading-6 text-blue-50"></p>
+          <section class="print-card overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white shadow-soft">
+            <div class="border-b border-slate-200 bg-gradient-to-r from-slate-950 via-brand-900 to-brand-700 px-5 py-6 text-white sm:px-8 sm:py-7">
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div class="min-w-0">
+                  <div id="serviceBadge" class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-blue-100"></div>
+                  <h2 id="serviceTitle" class="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl"></h2>
+                  <p id="serviceDescription" class="mt-3 max-w-3xl text-sm leading-7 text-blue-50 sm:text-base"></p>
                 </div>
                 <button
                   id="downloadButton"
                   type="button"
-                  class="no-print inline-flex items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-brand-700 transition hover:-translate-y-0.5 hover:bg-blue-50"
+                  class="no-print inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-brand-700 transition hover:-translate-y-0.5 hover:bg-blue-50"
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V3.75m0 12.75 4.5-4.5M12 16.5l-4.5-4.5M3.75 18.75h16.5" />
+                  </svg>
                   Download Checklist
                 </button>
               </div>
             </div>
 
-            <div class="grid gap-6 px-6 py-6 sm:px-8 lg:grid-cols-2">
-              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <div class="grid gap-5 px-4 py-5 sm:px-6 sm:py-6 lg:grid-cols-2 lg:gap-6 lg:px-8 lg:py-8">
+              <article class="rounded-3xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-xl">🧾</div>
-                  <h3 class="text-lg font-semibold text-slate-900">Required Documents</h3>
+                  <div class="rounded-2xl bg-blue-100 p-3 text-brand-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-950">Required Documents</h3>
+                    <p class="text-sm text-slate-500">Bring these to avoid delays.</p>
+                  </div>
                 </div>
-                <ul id="requiredList" class="mt-4 space-y-3"></ul>
+                <ul id="requiredList" class="mt-5 space-y-3"></ul>
               </article>
 
-              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <article class="rounded-3xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-xl">➕</div>
-                  <h3 class="text-lg font-semibold text-slate-900">Optional Documents</h3>
+                  <div class="rounded-2xl bg-emerald-100 p-3 text-emerald-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-950">Optional Documents</h3>
+                    <p class="text-sm text-slate-500">Helpful extras that may support your application.</p>
+                  </div>
                 </div>
-                <ul id="optionalList" class="mt-4 space-y-3"></ul>
+                <ul id="optionalList" class="mt-5 space-y-3"></ul>
               </article>
 
-              <article class="rounded-2xl border border-slate-200 bg-white p-5 lg:col-span-2">
+              <article class="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6 lg:col-span-2">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-xl">📍</div>
-                  <h3 class="text-lg font-semibold text-slate-900">Step-by-Step Process</h3>
+                  <div class="rounded-2xl bg-amber-100 p-3 text-amber-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4.5 4.5" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 12c0 4.971-4.029 9-9 9s-9-4.029-9-9 4.029-9 9-9 9 4.029 9 9Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-950">Step-by-Step Process</h3>
+                    <p class="text-sm text-slate-500">Use these steps as your preparation guide.</p>
+                  </div>
                 </div>
                 <ol id="stepsList" class="mt-5 grid gap-4 md:grid-cols-2"></ol>
               </article>
 
-              <article class="rounded-2xl border border-rose-200 bg-rose-50 p-5 lg:col-span-2">
+              <article class="rounded-3xl border border-rose-200 bg-rose-50 p-5 sm:p-6 lg:col-span-2">
                 <div class="flex items-center gap-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-100 text-xl">⚠️</div>
-                  <h3 class="text-lg font-semibold text-slate-900">Common Mistakes to Avoid</h3>
+                  <div class="rounded-2xl bg-rose-100 p-3 text-rose-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.34 3.94 2.64 17.25A1.5 1.5 0 0 0 3.94 19.5h16.12a1.5 1.5 0 0 0 1.3-2.25L13.66 3.94a1.5 1.5 0 0 0-2.6 0Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-semibold text-slate-950">Common Mistakes to Avoid</h3>
+                    <p class="text-sm text-slate-500">Small misses that often cause delays or extra trips.</p>
+                  </div>
                 </div>
-                <ul id="mistakesList" class="mt-4 space-y-3"></ul>
+                <ul id="mistakesList" class="mt-5 space-y-3"></ul>
               </article>
             </div>
           </section>
         </div>
 
-        <footer class="rounded-[1.75rem] border border-slate-200 bg-white px-6 py-5 text-sm text-slate-500 shadow-soft">
+        <footer class="rounded-[1.8rem] border border-slate-200 bg-white px-5 py-5 text-sm leading-6 text-slate-500 shadow-panel sm:px-6">
           This tool provides general guidance only and is not affiliated with the Department of Home Affairs, SARS, or UIF.
         </footer>
       </section>
@@ -264,6 +414,53 @@
   </div>
 
   <script>
+    // Inline SVG keeps the file self-contained while still giving us crisp iconography.
+    const icons = {
+      idCard: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5A2.25 2.25 0 0 1 6 5.25h12A2.25 2.25 0 0 1 20.25 7.5v9A2.25 2.25 0 0 1 18 18.75H6a2.25 2.25 0 0 1-2.25-2.25v-9Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 9.75h9M7.5 13.5h4.5M16.125 13.875a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z" />
+        </svg>
+      `,
+      refreshCard: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992V4.356M2.985 19.644V14.65h4.992M4.5 9.75a7.5 7.5 0 0 1 12.495-5.394l3.52 3.242M19.5 14.25a7.5 7.5 0 0 1-12.495 5.394l-3.52-3.242" />
+        </svg>
+      `,
+      passport: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3.75h10.5A2.25 2.25 0 0 1 19.5 6v12a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 18V6a2.25 2.25 0 0 1 2.25-2.25Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25h6M9 12h6M12 15.75h.008v.008H12v-.008Z" />
+        </svg>
+      `,
+      chart: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 19.5h16.5M7.5 16.5V9.75M12 16.5V6.75M16.5 16.5V12" />
+        </svg>
+      `,
+      shield: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75 5.25 6v5.25c0 4.477 2.932 8.426 6.75 9.75 3.818-1.324 6.75-5.273 6.75-9.75V6L12 3.75Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 12 1.5 1.5 3-3.75" />
+        </svg>
+      `,
+      building: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M6 21V7.5A1.5 1.5 0 0 1 7.5 6h9A1.5 1.5 0 0 1 18 7.5V21M9 9.75h.008v.008H9V9.75Zm0 3h.008v.008H9v-.008Zm0 3h.008v.008H9v-.008Zm6-6h.008v.008H15V9.75Zm0 3h.008v.008H15v-.008Zm0 3h.008v.008H15v-.008Z" />
+        </svg>
+      `,
+      checkbox: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7" />
+        </svg>
+      `,
+      warning: `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008ZM10.34 3.94 2.64 17.25A1.5 1.5 0 0 0 3.94 19.5h16.12a1.5 1.5 0 0 0 1.3-2.25L13.66 3.94a1.5 1.5 0 0 0-2.6 0Z" />
+        </svg>
+      `
+    };
+
     // Dataset for each supported government service.
     const services = [
       {
@@ -271,7 +468,7 @@
         title: "First Time ID (DHA)",
         shortLabel: "First Time ID",
         department: "Department of Home Affairs",
-        icon: "🪪",
+        icon: icons.idCard,
         description:
           "Guidance for South African citizens applying for their first green barcoded ID or Smart ID card through Home Affairs.",
         requiredDocuments: [
@@ -305,7 +502,7 @@
         title: "Smart ID Replacement (DHA)",
         shortLabel: "Smart ID Replacement",
         department: "Department of Home Affairs",
-        icon: "💳",
+        icon: icons.refreshCard,
         description:
           "Checklist for replacing a lost, stolen, damaged, or defaced Smart ID card through Home Affairs.",
         requiredDocuments: [
@@ -339,7 +536,7 @@
         title: "Passport Application (DHA)",
         shortLabel: "Passport Application",
         department: "Department of Home Affairs",
-        icon: "🌍",
+        icon: icons.passport,
         description:
           "A practical checklist for standard South African passport applications submitted through Home Affairs or supported bank branches.",
         requiredDocuments: [
@@ -373,7 +570,7 @@
         title: "SARS Tax Number Registration",
         shortLabel: "SARS Tax Number",
         department: "South African Revenue Service",
-        icon: "📊",
+        icon: icons.chart,
         description:
           "Checklist for taxpayers registering for an income tax reference number with SARS for the first time.",
         requiredDocuments: [
@@ -407,7 +604,7 @@
         title: "UIF Claim (Retrenchment / Maternity / Illness)",
         shortLabel: "UIF Claim",
         department: "Unemployment Insurance Fund",
-        icon: "🛟",
+        icon: icons.shield,
         description:
           "Support for preparing a UIF claim checklist for common claim categories including retrenchment, maternity, and illness.",
         requiredDocuments: [
@@ -440,6 +637,8 @@
       }
     ];
 
+    const STORAGE_KEY = "sa-gov-assist:last-service";
+
     const serviceSelect = document.getElementById("serviceSelect");
     const serviceCards = document.getElementById("serviceCards");
     const generateButton = document.getElementById("generateButton");
@@ -458,6 +657,7 @@
     const optionalList = document.getElementById("optionalList");
     const stepsList = document.getElementById("stepsList");
     const mistakesList = document.getElementById("mistakesList");
+    const flagCard = document.getElementById("flagCard");
 
     let selectedServiceId = "";
 
@@ -470,83 +670,134 @@
       });
     }
 
-    function renderServiceCards() {
-      serviceCards.innerHTML = "";
+    function getServiceById(serviceId) {
+      return services.find((service) => service.id === serviceId);
+    }
 
-      services.forEach((service) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.dataset.serviceId = service.id;
-        button.className =
-          "group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50";
-        button.innerHTML = `
-          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-2xl transition group-hover:bg-white">
+    function saveLastSelection(serviceId) {
+      if (serviceId) {
+        localStorage.setItem(STORAGE_KEY, serviceId);
+      } else {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    }
+
+    function createServiceCard(service) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.serviceId = service.id;
+      button.className =
+        "group rounded-3xl border border-slate-200 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/80 hover:shadow-md";
+      button.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 transition group-hover:bg-white group-hover:text-brand-700">
             ${service.icon}
           </div>
-          <div class="min-w-0">
-            <p class="truncate font-semibold text-slate-900">${service.shortLabel}</p>
-            <p class="text-sm text-slate-500">${service.department}</p>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="font-semibold leading-6 text-slate-950">${service.shortLabel}</p>
+                <div class="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                  ${icons.building}
+                  <span>${service.department}</span>
+                </div>
+              </div>
+              <span data-role="select-badge" class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-500 transition group-hover:bg-white">Select</span>
+            </div>
           </div>
-        `;
+        </div>
+      `;
 
-        button.addEventListener("click", () => {
-          serviceSelect.value = service.id;
-          setSelectedService(service.id);
-        });
+      button.addEventListener("click", () => {
+        serviceSelect.value = service.id;
+        setSelectedService(service.id);
+      });
 
-        serviceCards.appendChild(button);
+      return button;
+    }
+
+    function renderServiceCards() {
+      serviceCards.innerHTML = "";
+      services.forEach((service) => {
+        serviceCards.appendChild(createServiceCard(service));
       });
     }
 
     function setSelectedService(serviceId) {
       selectedServiceId = serviceId;
+      saveLastSelection(serviceId);
 
       Array.from(serviceCards.children).forEach((card) => {
         const isActive = card.dataset.serviceId === serviceId;
         card.className = isActive
-          ? "group flex items-center gap-4 rounded-2xl border border-brand-500 bg-blue-50 p-4 text-left shadow-sm transition"
-          : "group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50";
+          ? "group selection-ring rounded-3xl border border-brand-500 bg-blue-50 p-4 text-left shadow-sm transition"
+          : "group rounded-3xl border border-slate-200 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50/80 hover:shadow-md";
+
+        const badge = card.querySelector("[data-role='select-badge']");
+        if (badge) {
+          badge.textContent = isActive ? "Selected" : "Select";
+          badge.className = isActive
+            ? "rounded-full bg-brand-600 px-2.5 py-1 text-xs font-medium text-white"
+            : "rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-500 transition group-hover:bg-white";
+        }
       });
     }
 
-    function createBulletItem(text, tone = "default") {
+    function createChecklistItem(text, tone = "default") {
       const toneStyles = {
-        default: "bg-blue-100 text-brand-700",
-        success: "bg-emerald-100 text-emerald-700",
-        warning: "bg-rose-100 text-rose-700"
+        default: {
+          wrapper: "border-slate-200 bg-white",
+          box: "border-blue-200 bg-blue-50 text-brand-600",
+          text: "text-slate-700"
+        },
+        success: {
+          wrapper: "border-emerald-200 bg-white",
+          box: "border-emerald-200 bg-emerald-50 text-emerald-600",
+          text: "text-slate-700"
+        },
+        warning: {
+          wrapper: "border-rose-200 bg-white",
+          box: "border-rose-200 bg-rose-50 text-rose-600",
+          text: "text-slate-700"
+        }
       };
 
+      const selectedTone = toneStyles[tone];
       const item = document.createElement("li");
-      item.className = "flex items-start gap-3 rounded-2xl bg-white p-3";
+      item.className = `rounded-2xl border ${selectedTone.wrapper} p-3.5 transition hover:-translate-y-0.5 hover:shadow-sm`;
       item.innerHTML = `
-        <span class="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full ${toneStyles[tone]} text-sm font-bold">✓</span>
-        <span class="text-sm leading-6 text-slate-700">${text}</span>
+        <div class="flex items-start gap-3">
+          <span class="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-lg border ${selectedTone.box}">
+            ${tone === "warning" ? icons.warning : icons.checkbox}
+          </span>
+          <span class="text-sm leading-6 ${selectedTone.text}">${text}</span>
+        </div>
       `;
       return item;
     }
 
     function createStepItem(text, index) {
       const item = document.createElement("li");
-      item.className = "rounded-2xl border border-slate-200 bg-slate-50 p-4";
+      item.className = "rounded-3xl border border-slate-200 bg-slate-50 p-4 sm:p-5";
       item.innerHTML = `
-        <div class="flex items-start gap-3">
-          <span class="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+        <div class="flex items-start gap-4">
+          <span class="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-600 text-sm font-bold text-white shadow-md shadow-blue-200">
             ${index + 1}
           </span>
-          <p class="text-sm leading-6 text-slate-700">${text}</p>
+          <p class="pt-1 text-sm leading-7 text-slate-700">${text}</p>
         </div>
       `;
       return item;
     }
 
     function renderResults(serviceId) {
-      const service = services.find((item) => item.id === serviceId);
+      const service = getServiceById(serviceId);
 
       if (!service) {
         return;
       }
 
-      serviceBadge.textContent = `${service.icon} ${service.department}`;
+      serviceBadge.innerHTML = `${service.icon}<span>${service.department}</span>`;
       serviceTitle.textContent = service.title;
       serviceDescription.textContent = service.description;
 
@@ -556,11 +807,11 @@
       mistakesList.innerHTML = "";
 
       service.requiredDocuments.forEach((doc) => {
-        requiredList.appendChild(createBulletItem(doc, "default"));
+        requiredList.appendChild(createChecklistItem(doc, "default"));
       });
 
       service.optionalDocuments.forEach((doc) => {
-        optionalList.appendChild(createBulletItem(doc, "success"));
+        optionalList.appendChild(createChecklistItem(doc, "success"));
       });
 
       service.steps.forEach((step, index) => {
@@ -568,32 +819,58 @@
       });
 
       service.mistakes.forEach((mistake) => {
-        mistakesList.appendChild(createBulletItem(mistake, "warning"));
+        mistakesList.appendChild(createChecklistItem(mistake, "warning"));
       });
 
       emptyState.classList.add("hidden");
       resultsPanel.classList.remove("hidden");
-      resultsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
       updateProgress(true);
+      resultsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function updateProgress(hasResults) {
       progressLabel.textContent = hasResults ? "Step 2 of 2" : "Step 1 of 2";
 
-      step1Dot.className = "flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white";
+      step1Dot.className =
+        "flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600 font-bold text-white shadow-md shadow-blue-200";
       step2Dot.className = hasResults
-        ? "flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white"
-        : "flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 text-sm font-bold text-slate-500";
+        ? "flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500 font-bold text-white shadow-md shadow-emerald-100"
+        : "flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-200 font-bold text-slate-500";
     }
 
     function resetInterface() {
       selectedServiceId = "";
       serviceSelect.value = "";
+      saveLastSelection("");
       emptyState.classList.remove("hidden");
       resultsPanel.classList.add("hidden");
       updateProgress(false);
       setSelectedService("");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function restoreLastSelection() {
+      const lastService = localStorage.getItem(STORAGE_KEY);
+      if (!lastService || !getServiceById(lastService)) {
+        return;
+      }
+
+      serviceSelect.value = lastService;
+      setSelectedService(lastService);
+      renderResults(lastService);
+    }
+
+    function triggerChecklistGeneration() {
+      if (!selectedServiceId) {
+        serviceSelect.focus();
+        serviceSelect.classList.add("ring-4", "ring-rose-100", "border-rose-400");
+        setTimeout(() => {
+          serviceSelect.classList.remove("ring-4", "ring-rose-100", "border-rose-400");
+        }, 1200);
+        return;
+      }
+
+      renderResults(selectedServiceId);
     }
 
     // Initialize UI and wire up event listeners.
@@ -605,21 +882,28 @@
       setSelectedService(event.target.value);
     });
 
-    generateButton.addEventListener("click", () => {
-      if (!selectedServiceId) {
-        serviceSelect.focus();
-        serviceSelect.classList.add("ring-4", "ring-rose-100", "border-rose-400");
-        setTimeout(() => {
-          serviceSelect.classList.remove("ring-4", "ring-rose-100", "border-rose-400");
-        }, 1200);
-        return;
-      }
-
-      renderResults(selectedServiceId);
-    });
+    generateButton.addEventListener("click", triggerChecklistGeneration);
 
     resetButton.addEventListener("click", resetInterface);
     downloadButton.addEventListener("click", () => window.print());
+
+    if (flagCard) {
+      flagCard.addEventListener("mousemove", (event) => {
+        const rect = flagCard.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        const rotateY = (x - 0.5) * 8;
+        const rotateX = (0.5 - y) * 6;
+
+        flagCard.style.transform = `perspective(1400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      flagCard.addEventListener("mouseleave", () => {
+        flagCard.style.transform = "perspective(1400px) rotateX(0deg) rotateY(0deg)";
+      });
+    }
+
+    restoreLastSelection();
   </script>
 </body>
 </html>
