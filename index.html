@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SA Gov Assist - Document Checklist Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: "#eef6ff",
+              100: "#d9ebff",
+              500: "#2563eb",
+              600: "#1d4ed8",
+              700: "#1e40af",
+              900: "#0f172a"
+            }
+          },
+          boxShadow: {
+            soft: "0 20px 45px -20px rgba(15, 23, 42, 0.25)"
+          },
+          keyframes: {
+            fadeUp: {
+              "0%": { opacity: "0", transform: "translateY(14px)" },
+              "100%": { opacity: "1", transform: "translateY(0)" }
+            }
+          },
+          animation: {
+            "fade-up": "fadeUp 0.45s ease-out"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 28%),
+        linear-gradient(180deg, #f8fbff 0%, #eff6ff 45%, #f8fafc 100%);
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff !important;
+      }
+
+      .print-card {
+        box-shadow: none !important;
+        border: 1px solid #d1d5db !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-800">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <header class="no-print">
+      <div class="glass overflow-hidden rounded-[2rem] border border-white/70 shadow-soft">
+        <div class="grid gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:px-12 lg:py-14">
+          <div class="animate-fade-up">
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm font-medium text-brand-700 shadow-sm">
+              <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+              Trusted guidance for common SA government document journeys
+            </div>
+            <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+              SA Gov Assist
+              <span class="block text-brand-600">Document Checklist Generator</span>
+            </h1>
+            <p class="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              Choose a service and instantly get a practical checklist of required documents,
+              optional supporting items, process steps, and common mistakes to avoid.
+            </p>
+
+            <div class="mt-8 grid gap-3 sm:grid-cols-3">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <p class="text-sm font-semibold text-slate-900">Mobile-first</p>
+                <p class="mt-1 text-sm text-slate-600">Designed to work smoothly on phones and desktops.</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <p class="text-sm font-semibold text-slate-900">Clear steps</p>
+                <p class="mt-1 text-sm text-slate-600">Guidance broken down into simple next actions.</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                <p class="text-sm font-semibold text-slate-900">Print-ready</p>
+                <p class="mt-1 text-sm text-slate-600">Download or save your checklist as a PDF via print.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="animate-fade-up rounded-[1.75rem] border border-slate-200 bg-slate-900 p-6 text-white shadow-soft">
+            <p class="text-sm uppercase tracking-[0.25em] text-blue-200">How It Works</p>
+            <div class="mt-5 space-y-4">
+              <div class="flex gap-3">
+                <div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-100">1</div>
+                <div>
+                  <p class="font-semibold">Select a service</p>
+                  <p class="text-sm text-slate-300">Pick the government service you need help with.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-100">2</div>
+                <div>
+                  <p class="font-semibold">Review your checklist</p>
+                  <p class="text-sm text-slate-300">See required documents, optional items, and process tips.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-100">3</div>
+                <div>
+                  <p class="font-semibold">Print or save</p>
+                  <p class="text-sm text-slate-300">Use the download button to print or save as PDF.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mt-8 grid gap-6 lg:grid-cols-[340px_1fr]">
+      <aside class="no-print space-y-6">
+        <section class="print-card rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-slate-900">Progress</h2>
+            <span id="progressLabel" class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-brand-700">Step 1 of 2</span>
+          </div>
+
+          <div class="mt-5 space-y-4">
+            <div class="flex items-start gap-3">
+              <div id="step1Dot" class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">1</div>
+              <div>
+                <p class="font-medium text-slate-900">Choose service</p>
+                <p class="text-sm text-slate-500">Select the government service you need.</p>
+              </div>
+            </div>
+            <div class="ml-4 h-8 w-px bg-slate-200"></div>
+            <div class="flex items-start gap-3">
+              <div id="step2Dot" class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 text-sm font-bold text-slate-500">2</div>
+              <div>
+                <p class="font-medium text-slate-900">View results</p>
+                <p class="text-sm text-slate-500">Use your checklist and download if needed.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="print-card rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-slate-900">Select a Service</h2>
+            <button
+              id="resetButton"
+              type="button"
+              class="rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:bg-slate-50"
+            >
+              Reset
+            </button>
+          </div>
+
+          <label for="serviceSelect" class="mt-5 block text-sm font-medium text-slate-700">Government service</label>
+          <select
+            id="serviceSelect"
+            class="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+          >
+            <option value="">Choose an option</option>
+          </select>
+
+          <div id="serviceCards" class="mt-5 grid gap-3"></div>
+
+          <button
+            id="generateButton"
+            type="button"
+            class="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:-translate-y-0.5 hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+          >
+            Generate Checklist
+          </button>
+        </section>
+      </aside>
+
+      <section class="space-y-6">
+        <div id="emptyState" class="print-card rounded-[1.75rem] border border-dashed border-slate-300 bg-white/80 p-8 text-center shadow-soft">
+          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-3xl">📄</div>
+          <h2 class="mt-4 text-2xl font-semibold text-slate-900">Generate your checklist</h2>
+          <p class="mx-auto mt-3 max-w-2xl text-slate-600">
+            Pick a service from the left to get a tailored document checklist with supporting steps,
+            optional items, and common issues to watch out for.
+          </p>
+        </div>
+
+        <div id="resultsPanel" class="hidden animate-fade-up space-y-6">
+          <section class="print-card overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-soft">
+            <div class="border-b border-slate-200 bg-gradient-to-r from-slate-900 via-brand-900 to-brand-700 px-6 py-6 text-white sm:px-8">
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div id="serviceBadge" class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-blue-100"></div>
+                  <h2 id="serviceTitle" class="mt-3 text-2xl font-semibold"></h2>
+                  <p id="serviceDescription" class="mt-2 max-w-3xl text-sm leading-6 text-blue-50"></p>
+                </div>
+                <button
+                  id="downloadButton"
+                  type="button"
+                  class="no-print inline-flex items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-brand-700 transition hover:-translate-y-0.5 hover:bg-blue-50"
+                >
+                  Download Checklist
+                </button>
+              </div>
+            </div>
+
+            <div class="grid gap-6 px-6 py-6 sm:px-8 lg:grid-cols-2">
+              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div class="flex items-center gap-3">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-xl">🧾</div>
+                  <h3 class="text-lg font-semibold text-slate-900">Required Documents</h3>
+                </div>
+                <ul id="requiredList" class="mt-4 space-y-3"></ul>
+              </article>
+
+              <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div class="flex items-center gap-3">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-xl">➕</div>
+                  <h3 class="text-lg font-semibold text-slate-900">Optional Documents</h3>
+                </div>
+                <ul id="optionalList" class="mt-4 space-y-3"></ul>
+              </article>
+
+              <article class="rounded-2xl border border-slate-200 bg-white p-5 lg:col-span-2">
+                <div class="flex items-center gap-3">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-xl">📍</div>
+                  <h3 class="text-lg font-semibold text-slate-900">Step-by-Step Process</h3>
+                </div>
+                <ol id="stepsList" class="mt-5 grid gap-4 md:grid-cols-2"></ol>
+              </article>
+
+              <article class="rounded-2xl border border-rose-200 bg-rose-50 p-5 lg:col-span-2">
+                <div class="flex items-center gap-3">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-100 text-xl">⚠️</div>
+                  <h3 class="text-lg font-semibold text-slate-900">Common Mistakes to Avoid</h3>
+                </div>
+                <ul id="mistakesList" class="mt-4 space-y-3"></ul>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <footer class="rounded-[1.75rem] border border-slate-200 bg-white px-6 py-5 text-sm text-slate-500 shadow-soft">
+          This tool provides general guidance only and is not affiliated with the Department of Home Affairs, SARS, or UIF.
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Dataset for each supported government service.
+    const services = [
+      {
+        id: "first-time-id",
+        title: "First Time ID (DHA)",
+        shortLabel: "First Time ID",
+        department: "Department of Home Affairs",
+        icon: "🪪",
+        description:
+          "Guidance for South African citizens applying for their first green barcoded ID or Smart ID card through Home Affairs.",
+        requiredDocuments: [
+          "Birth certificate or certified copy of your birth certificate.",
+          "Proof that you are a South African citizen, if requested during verification.",
+          "Parent or legal guardian ID copies if the applicant is under 18.",
+          "Completed DHA application captured at the branch or online booking confirmation where applicable.",
+          "Any supporting affidavit if personal details need clarification."
+        ],
+        optionalDocuments: [
+          "Proof of address in case the branch asks for updated contact information.",
+          "School letter, clinic card, or other supporting identity records.",
+          "Appointment confirmation printout from the DHA online booking system."
+        ],
+        steps: [
+          "Check whether your nearest Home Affairs office or bank branch supports Smart ID applications and bookings.",
+          "Gather your birth certificate and supporting identity records before visiting the branch.",
+          "Attend your appointment or visit the branch to capture fingerprints, photograph, and signature.",
+          "Confirm all personal details on the application before final submission.",
+          "Keep your collection slip or SMS reference and wait for collection notification."
+        ],
+        mistakes: [
+          "Arriving without a birth certificate or replacement proof when the original is unavailable.",
+          "Assuming every branch accepts walk-ins for first-time Smart ID applications.",
+          "Submitting forms with names or dates that do not match existing records.",
+          "Leaving without a reference slip or confirmation of submission."
+        ]
+      },
+      {
+        id: "smart-id-replacement",
+        title: "Smart ID Replacement (DHA)",
+        shortLabel: "Smart ID Replacement",
+        department: "Department of Home Affairs",
+        icon: "💳",
+        description:
+          "Checklist for replacing a lost, stolen, damaged, or defaced Smart ID card through Home Affairs.",
+        requiredDocuments: [
+          "Your existing ID number and any copy of the damaged or old ID if available.",
+          "Police affidavit or case number if the Smart ID was lost or stolen.",
+          "Proof of payment if the replacement fee must be paid before processing.",
+          "Completed DHA replacement application at the branch or linked online booking confirmation.",
+          "Biometric capture at the branch for fingerprints, photograph, and signature."
+        ],
+        optionalDocuments: [
+          "Proof of address and contact details update.",
+          "Temporary identity certificate if you urgently need proof of identity.",
+          "Certified copy of the old ID document if you still have one."
+        ],
+        steps: [
+          "Report the card as lost or stolen if relevant and keep the affidavit details.",
+          "Book with a participating branch if online booking is available in your area.",
+          "Take your supporting documents and payment proof to Home Affairs.",
+          "Complete the replacement request and verify your personal details carefully.",
+          "Collect the new Smart ID once the branch confirms it is ready."
+        ],
+        mistakes: [
+          "Not bringing an affidavit or case reference for a lost or stolen card.",
+          "Forgetting to budget for the replacement fee where applicable.",
+          "Using outdated phone numbers and then missing collection notifications.",
+          "Skipping detail checks on names, surname spelling, or marital status."
+        ]
+      },
+      {
+        id: "passport-application",
+        title: "Passport Application (DHA)",
+        shortLabel: "Passport Application",
+        department: "Department of Home Affairs",
+        icon: "🌍",
+        description:
+          "A practical checklist for standard South African passport applications submitted through Home Affairs or supported bank branches.",
+        requiredDocuments: [
+          "South African ID book or Smart ID card.",
+          "Completed passport application processed at the branch or through a booking-linked system.",
+          "Passport fee payment confirmation where required.",
+          "Old passport if you are renewing or replacing an expired passport.",
+          "Biometric capture including fingerprints, photo, and signature at the branch."
+        ],
+        optionalDocuments: [
+          "Travel itinerary if you need to explain urgency.",
+          "Police affidavit if the previous passport was lost or stolen.",
+          "Unabridged birth certificate and parental consent for a minor passport application."
+        ],
+        steps: [
+          "Check the passport type you need, such as tourist, official, or child passport.",
+          "Book at Home Affairs or a participating bank branch if supported in your area.",
+          "Bring your ID, fee confirmation, and old passport if applicable.",
+          "Complete biometric capture and confirm all information before submission.",
+          "Keep your receipt safely and collect the passport after notification."
+        ],
+        mistakes: [
+          "Bringing an expired or damaged ID without additional supporting proof.",
+          "Forgetting the old passport when it should be surrendered.",
+          "Assuming minor applications do not require extra parental documentation.",
+          "Waiting until the last minute before travel to apply."
+        ]
+      },
+      {
+        id: "sars-tax-number",
+        title: "SARS Tax Number Registration",
+        shortLabel: "SARS Tax Number",
+        department: "South African Revenue Service",
+        icon: "📊",
+        description:
+          "Checklist for taxpayers registering for an income tax reference number with SARS for the first time.",
+        requiredDocuments: [
+          "South African ID, Smart ID card, passport, or valid permit depending on your status.",
+          "Proof of residential address not older than 3 months, such as a utility bill or bank statement.",
+          "Proof of bank account if SARS requests it for verification.",
+          "Employment letter or IRP5 if registration is linked to employment.",
+          "Completed registration details through eFiling, virtual appointment, or branch support."
+        ],
+        optionalDocuments: [
+          "Certified copy of ID if you are asked to upload supporting documents.",
+          "Marriage certificate or name change proof if personal details differ across records.",
+          "Power of attorney documents if someone is assisting you officially."
+        ],
+        steps: [
+          "Start on SARS eFiling if you can register online using your personal details.",
+          "Prepare digital or printed copies of ID and proof of address for verification.",
+          "Submit your registration information and respond to any verification request from SARS.",
+          "Check your SMS or eFiling profile for your allocated tax reference number.",
+          "Store the reference number securely for future tax returns and employment records."
+        ],
+        mistakes: [
+          "Uploading proof of address that is too old or not clearly readable.",
+          "Using bank or employment details that do not match SARS records.",
+          "Creating duplicate profiles because you are unsure whether a tax number already exists.",
+          "Ignoring follow-up verification notices after the initial registration."
+        ]
+      },
+      {
+        id: "uif-claim",
+        title: "UIF Claim (Retrenchment / Maternity / Illness)",
+        shortLabel: "UIF Claim",
+        department: "Unemployment Insurance Fund",
+        icon: "🛟",
+        description:
+          "Support for preparing a UIF claim checklist for common claim categories including retrenchment, maternity, and illness.",
+        requiredDocuments: [
+          "13-digit South African ID or valid passport and permit where applicable.",
+          "UI-19 form completed by your employer.",
+          "Salary schedule or proof of earnings from the employer.",
+          "Bank confirmation letter or stamped bank form showing your account details.",
+          "Service certificate from the employer.",
+          "Medical certificate for illness claims or maternity-related medical proof for maternity claims.",
+          "Retrenchment letter or termination letter where relevant."
+        ],
+        optionalDocuments: [
+          "Proof of residence and contact details update.",
+          "Copies of recent payslips to support earnings history.",
+          "Birth certificate of the child for maternity-related follow-up requests."
+        ],
+        steps: [
+          "Confirm which UIF claim type applies to you: retrenchment, maternity, or illness.",
+          "Ask your employer to complete the UI-19, salary schedule, and service certificate.",
+          "Prepare your ID, banking proof, and medical or retrenchment evidence where needed.",
+          "Submit your claim through the labour centre or approved digital UIF submission channel.",
+          "Track communication from UIF and respond quickly if more information is requested."
+        ],
+        mistakes: [
+          "Submitting a UI-19 with missing employer signatures or incomplete dates.",
+          "Using a bank account that is not in the claimant's own name.",
+          "Leaving out medical evidence for illness or maternity-related claims.",
+          "Waiting too long after employment termination or the start of leave to begin the claim."
+        ]
+      }
+    ];
+
+    const serviceSelect = document.getElementById("serviceSelect");
+    const serviceCards = document.getElementById("serviceCards");
+    const generateButton = document.getElementById("generateButton");
+    const resetButton = document.getElementById("resetButton");
+    const downloadButton = document.getElementById("downloadButton");
+    const emptyState = document.getElementById("emptyState");
+    const resultsPanel = document.getElementById("resultsPanel");
+    const progressLabel = document.getElementById("progressLabel");
+    const step1Dot = document.getElementById("step1Dot");
+    const step2Dot = document.getElementById("step2Dot");
+
+    const serviceBadge = document.getElementById("serviceBadge");
+    const serviceTitle = document.getElementById("serviceTitle");
+    const serviceDescription = document.getElementById("serviceDescription");
+    const requiredList = document.getElementById("requiredList");
+    const optionalList = document.getElementById("optionalList");
+    const stepsList = document.getElementById("stepsList");
+    const mistakesList = document.getElementById("mistakesList");
+
+    let selectedServiceId = "";
+
+    function populateServiceOptions() {
+      services.forEach((service) => {
+        const option = document.createElement("option");
+        option.value = service.id;
+        option.textContent = service.title;
+        serviceSelect.appendChild(option);
+      });
+    }
+
+    function renderServiceCards() {
+      serviceCards.innerHTML = "";
+
+      services.forEach((service) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.serviceId = service.id;
+        button.className =
+          "group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50";
+        button.innerHTML = `
+          <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-2xl transition group-hover:bg-white">
+            ${service.icon}
+          </div>
+          <div class="min-w-0">
+            <p class="truncate font-semibold text-slate-900">${service.shortLabel}</p>
+            <p class="text-sm text-slate-500">${service.department}</p>
+          </div>
+        `;
+
+        button.addEventListener("click", () => {
+          serviceSelect.value = service.id;
+          setSelectedService(service.id);
+        });
+
+        serviceCards.appendChild(button);
+      });
+    }
+
+    function setSelectedService(serviceId) {
+      selectedServiceId = serviceId;
+
+      Array.from(serviceCards.children).forEach((card) => {
+        const isActive = card.dataset.serviceId === serviceId;
+        card.className = isActive
+          ? "group flex items-center gap-4 rounded-2xl border border-brand-500 bg-blue-50 p-4 text-left shadow-sm transition"
+          : "group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-blue-50";
+      });
+    }
+
+    function createBulletItem(text, tone = "default") {
+      const toneStyles = {
+        default: "bg-blue-100 text-brand-700",
+        success: "bg-emerald-100 text-emerald-700",
+        warning: "bg-rose-100 text-rose-700"
+      };
+
+      const item = document.createElement("li");
+      item.className = "flex items-start gap-3 rounded-2xl bg-white p-3";
+      item.innerHTML = `
+        <span class="mt-0.5 inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full ${toneStyles[tone]} text-sm font-bold">✓</span>
+        <span class="text-sm leading-6 text-slate-700">${text}</span>
+      `;
+      return item;
+    }
+
+    function createStepItem(text, index) {
+      const item = document.createElement("li");
+      item.className = "rounded-2xl border border-slate-200 bg-slate-50 p-4";
+      item.innerHTML = `
+        <div class="flex items-start gap-3">
+          <span class="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">
+            ${index + 1}
+          </span>
+          <p class="text-sm leading-6 text-slate-700">${text}</p>
+        </div>
+      `;
+      return item;
+    }
+
+    function renderResults(serviceId) {
+      const service = services.find((item) => item.id === serviceId);
+
+      if (!service) {
+        return;
+      }
+
+      serviceBadge.textContent = `${service.icon} ${service.department}`;
+      serviceTitle.textContent = service.title;
+      serviceDescription.textContent = service.description;
+
+      requiredList.innerHTML = "";
+      optionalList.innerHTML = "";
+      stepsList.innerHTML = "";
+      mistakesList.innerHTML = "";
+
+      service.requiredDocuments.forEach((doc) => {
+        requiredList.appendChild(createBulletItem(doc, "default"));
+      });
+
+      service.optionalDocuments.forEach((doc) => {
+        optionalList.appendChild(createBulletItem(doc, "success"));
+      });
+
+      service.steps.forEach((step, index) => {
+        stepsList.appendChild(createStepItem(step, index));
+      });
+
+      service.mistakes.forEach((mistake) => {
+        mistakesList.appendChild(createBulletItem(mistake, "warning"));
+      });
+
+      emptyState.classList.add("hidden");
+      resultsPanel.classList.remove("hidden");
+      resultsPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      updateProgress(true);
+    }
+
+    function updateProgress(hasResults) {
+      progressLabel.textContent = hasResults ? "Step 2 of 2" : "Step 1 of 2";
+
+      step1Dot.className = "flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white";
+      step2Dot.className = hasResults
+        ? "flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white"
+        : "flex h-9 w-9 items-center justify-center rounded-full bg-slate-200 text-sm font-bold text-slate-500";
+    }
+
+    function resetInterface() {
+      selectedServiceId = "";
+      serviceSelect.value = "";
+      emptyState.classList.remove("hidden");
+      resultsPanel.classList.add("hidden");
+      updateProgress(false);
+      setSelectedService("");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Initialize UI and wire up event listeners.
+    populateServiceOptions();
+    renderServiceCards();
+    updateProgress(false);
+
+    serviceSelect.addEventListener("change", (event) => {
+      setSelectedService(event.target.value);
+    });
+
+    generateButton.addEventListener("click", () => {
+      if (!selectedServiceId) {
+        serviceSelect.focus();
+        serviceSelect.classList.add("ring-4", "ring-rose-100", "border-rose-400");
+        setTimeout(() => {
+          serviceSelect.classList.remove("ring-4", "ring-rose-100", "border-rose-400");
+        }, 1200);
+        return;
+      }
+
+      renderResults(selectedServiceId);
+    });
+
+    resetButton.addEventListener("click", resetInterface);
+    downloadButton.addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>
